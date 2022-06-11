@@ -1,8 +1,0 @@
-alert() # function
-console.log("hello world!") # function
-
-The 7 Primitive Data Types:
-- Number: Floating point numbers 👉 Used for decimals and integers
-- String
-- Boolean:
-- Undefined 👉 <span style="color: red">let</span> children;
