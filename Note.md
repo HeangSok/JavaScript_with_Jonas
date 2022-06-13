@@ -52,3 +52,121 @@ true ? "do this if true" : "do this if false" ;
 **'use strict'** 👉 used for declaring strict mode in JavaScript; has to put it at the very top of the script. We should always use strict mode when working with JavaScript because some errors won't show without strict mode.
 - first, strict mode forbids us to do certain things
 - second, it creates visible errors in the devloper console while in other situation JavaScript would just fail silently.
+
+````
+// Function declaration; note: you can call this type of function before you declare it.
+function calcAge1(birthYear){
+  return 2037 - birthYear;
+}
+
+// Function expression; it similar to lambda in python or computable property in swift
+const calAge2 = function (birthYear) {
+  return 2037 - birthYear;
+}
+
+// let's call the functions 
+const age1 = calcAge1(1990);
+const age2 = calcAge2(1990);
+
+
+// Arrow function; Note: arrow function doesn't work with this keyword
+const calcAge3 = birthYear => 2037 - birthYear;
+const age3 = calcAge3(1990);
+````
+👉 use **backtick** like f string in python and string interpolation in swift. Ex: `some string ${variable}` 
+
+````
+// two ways to create an array
+const friends = ['Ross', 'Monica', 'Joey']
+const otherFriend = new Array('Rachel', 'Phoebe', 'Chandler')
+
+// get the length of the array
+const numberOfFriend = friends.length
+
+// add value to the last index
+friends.push("newFriend"); // this will add a newFriend to the array and return the length
+
+// add an element to the beginnin of the array
+friends.unshift('John');
+
+// remove the last element of the array
+friends.pop(); // it returns the element that it removes
+
+// remove the first element from the array
+friends.shift();
+
+// find the index of the element
+friends.indexOf("Ross"); // note: if the argument is not in the array, it return -1
+
+// check if an element is in the array or not
+friends.include("Ross") // return true
+friends.include("Angela") // return false
+````
+
+````
+// JavaScript object is like the dictionary in Python
+  const student = {
+    firstName: 'John',
+    lastName: 'Shelby',
+    age: 29,
+    job: 'Peaky Blinder',
+    brothers: ['Tommas Shelby', 'Authur Shelby', 'Finn Shelby']
+  }
+  
+  // use dot notation to call the object
+  console.log(student.firstName);
+  
+  // use bracket notation
+  console.log(student["firstName"]);
+  // or 
+  const nameKey = "Name";
+  console.log(student["first" + nameKey]); // note: we can use expression inside the bracket.
+  
+  // add new key-value pair
+  student.address = "Birmingham";
+  // or
+  student["company"] = "Shelby Brothers Limited";
+  
+  // function can be used as a property in JavaScript's object
+    const student = {
+    firstName: 'John',
+    lastName: 'Shelby',
+    age: 29,
+    job: 'Peaky Blinder',
+    brothers: ['Tommas Shelby', 'Authur Shelby', 'Finn Shelby'],
+    calcAge: function (birthYear) {
+      return 2037 - birthYear;
+    }
+  }
+  
+  console.log(student.calcAge(1990));
+  // or
+  console.log(student["calcAge"](1990));
+  
+````
+
+````
+// for loop
+for(let counter = 1; counter <= 10; count++) {
+  console.log(`Lifting weights repetition ${counter} 🏋️‍♀️`);
+}
+
+// loop backward 
+const student = [
+  "John",
+  "Shelby",
+  26,
+  "Peaky blinder",
+  ["Tommas Shelby", "Authur Shelby"],
+];
+
+for (let i = student.length -1; i >= 0; i--) {
+  console.log(student[i]);
+}
+
+````
+
+````
+
+````
+
