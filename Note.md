@@ -1,7 +1,16 @@
 alert() # function
+
 console.log("hello world!") # function
+
 console.log(typeof 23) # return Number
+
 console.log(typeof 'apple') # return String
+
+console.warn("something/variable/expression") # show warning if there is one
+
+console.error("something/variable/expression") # show error if there is one
+
+console.table(object) # show object in the form of table
 
 <strong>The 7 Primitive Data Types:</strong>
 - Number: Floating point numbers 👉 Used for decimals and integers
