@@ -38,7 +38,7 @@ Boolean("apple") # convert to **Bool**
 
 const favourite = promt("What's your favourite number?") # ask user to input sth
 
-````
+````JavaScript
 conts day = "Monday";
 switch (day) {
   case "Monday":
@@ -54,7 +54,7 @@ switch (day) {
 ````
 An **Expression** is a piece of code that produce value.
 
-````
+```` JavaScript
 # Ternary operator
 true ? "do this if true" : "do this if false" ;
 ````
@@ -62,7 +62,7 @@ true ? "do this if true" : "do this if false" ;
 - first, strict mode forbids us to do certain things
 - second, it creates visible errors in the devloper console while in other situation JavaScript would just fail silently.
 
-````
+```` JavaScript
 // Function declaration; note: you can call this type of function before you declare it.
 function calcAge1(birthYear){
   return 2037 - birthYear;
@@ -84,7 +84,7 @@ const age3 = calcAge3(1990);
 ````
 👉 use **backtick** like f string in python and string interpolation in swift. Ex: `some string ${variable}` 
 
-````
+````JavaScript
 // two ways to create an array
 const friends = ['Ross', 'Monica', 'Joey']
 const otherFriend = new Array('Rachel', 'Phoebe', 'Chandler')
@@ -112,7 +112,7 @@ friends.include("Ross") // return true
 friends.include("Angela") // return false
 ````
 
-````
+````JavaScript
 // JavaScript object is like the dictionary in Python
   const student = {
     firstName: 'John',
@@ -154,7 +154,7 @@ friends.include("Angela") // return false
   
 ````
 
-````
+````JavaScript
 // for loop
 for(let counter = 1; counter <= 10; count++) {
   console.log(`Lifting weights repetition ${counter} 🏋️‍♀️`);
