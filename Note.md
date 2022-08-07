@@ -186,15 +186,15 @@ age: 27
 }
 // now let's copy
 const johnCopy = join;
-// now let change the value of the age
+// now let's change the value of the age
 johnCopy.age = 25
 // now let's print jonh and jonhCopy
 console.log(jonh); // outcome: { firstName: 'John', lastName: 'Shelby', age: 25}
 console.log(jonhCopy); // outcome: { firstName: 'John', lastName: 'Shelby', age: 25}
 // what we see here is the age value for both jonh and jonhCopy change to 25; this is because object is a reference type.
-// we need to do a shallow copy of or deep copy to avoid the referencing.
+// we need to do a deep copy to avoid the referencing.
 ````
-**Shallow Copy** 
+**Deep Copy** 
 ````JavaScript
 const john = {
 firstName: 'John',
@@ -203,11 +203,11 @@ age: 27
 }
 // now let's copy
 const johnCopy = Object.assign({}, join);
-// now let change the value of the age
+// now let's change the value of the age
 johnCopy.age = 25
 // now let's print jonh and jonhCopy
 console.log(jonh); // outcome: { firstName: 'John', lastName: 'Shelby', age: 27}
 console.log(jonhCopy); // outcome: { firstName: 'John', lastName: 'Shelby', age: 25}
-// note: shallow copy work only in the first level of copy; this mean that if we have an object inside an object, it works only in the first level object (parent), and the object inside still reference to the value. In this case, we need to do a deep copy.
+// note: this method works only in the first level of copy; this mean that if we have an object inside an object, it works only in the first level object (parent), and the object inside still reference to the value. In this case, we need to use some package libraries to achieve it.
 ````
 
