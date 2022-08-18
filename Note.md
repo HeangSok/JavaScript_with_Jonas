@@ -346,12 +346,145 @@ restaurant.orderDelivery({
 // result: Order received! Garlic Bread and Risotto will be delivered to Via del sole, 21 at 22:30
 
 ````
-**Iterables**: arrays, strings, maps, sets, Not Objects.
+👉 **Iterables**: arrays, strings, maps, sets, Not Objects.
 
 **Ternary Operator**:
 ````JavaScript
 let hungry = true
 const eatingLunch = hungry ? "Yes" : "No"
 ````
+**The Nullish coalescing operator**
+````JavaScript
+// it is similar to Nil-coalescing in Swift
+const eatingLunch = hungry ?? "You see this message becuase 'hungry' is 'Nullish'"
+console.log(eatingLunch)
+````
+
+**Logic-Assignment Operator**
+
+````JavaScript
+const rest1 = {
+name: 'Capri',
+numGuests: 0,
+};
+
+const rest2 = {
+name: 'La Pizza',
+owner: 'Giovanni Rossi',
+};
+
+// OR Assignment Operator
+// rest1.numbGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+rest1.numGuests ||= 10;
+rest2.numGuests ||= 10;
+
+// Nullish Assignment Operator (null or undefined)
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+// AND Assignment Operator 
+rest1.owner &&= 'ANONYMOUS'; // if rest1 doesn't have 'owner', it will create one and set the value to 'undefined' 
+rest2.owner &&= 'ANONYMOUS'; // if rest2.owner has value, it changes to anonymous
+
+````
+
+**Spread Operator (...)**
+````JavaScript
+// We use the Spread Operator to build a "new array" or to "pass multiple values into a function"
+// The Spread Operator will loop through the elements in the array, and take it out one by one.
+const arr = [7, 8, 9];
+const newArr = [1, 2, ...arr];
+console.log(newArr); // result: [1, 2, 7, 8, 9]
+console.log(...newArr); // result: 1 2 7 8 9
+console.log(newArr[3]);
+
+// without the Spread Operator
+const arr = [7, 8, 9];
+const newArr = [1, 2, arr]
+console.log(newArr); // result: [1, 2, [7, 8, 9]]
+
+````
+**Rest Operator**
+````JavaScript
+// The rest operator uses the same syntax like the "Spread Operator", but we use it to collect elements, then put it into an array. 
+// In another word, we use "Spread Operator" to unpack an array, while use "Rest Opearator" to pack an array
+
+// We normally use "Spread" on the Right side of =
+const arr = [1, 2, ...[3, 4]]; // it equals: const arr =  [1, 2, 3, 4]
+
+// We normally use "Rest" on the Left side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5] // Note: Rest Operator's element must be the last element 
+console.log(a, b, others) // others will equal to [3, 4, 5]
+
+// use Rest Operator as the argument
+const add = function (...numbers) {
+let sum = 0
+for (let  i = 0; i < numbers.length; i++) {
+sum += numbers[i];
+}
+console.log(sum);
+}
+
+add(2, 3) // result: 5
+add(2, 3, 4, 5) // result: 14
+add(2, 3, 4, 5, 6)
+
+const x = [1, 2, 3]
+add(...x) // reslult: 6
+
+````
+
+**Enhance Object Literal**
+````JavaScript
+// Usage 1
+// ES6 enhanced object literals
+const openingHours = {
+mon: {
+open: 9,
+close: 17,
+},
+tue: {
+open: 9,
+close: 17,
+}
+}
+
+const restaurant = {
+name: 'Italino',
+// Enhance object liters
+openingHours, // note: we use the same name as the object that we want to enhance.
+owner: 'Jack'
+
+// Usage 2
+// we can also write a method of an object like below from ES6
+order(foodName, quantity){
+console.log(`Your order is: ${foodName} => ${quantity}`)
+}
+// note: this order method is the same as order: function (foodName, quantity) {...}
+
+}
+
+// Usage 3
+
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri']
+// if we want to get the element in the weekdays and use it as the key inside an object, we can:
+const openingHours = {
+[weekdays[0]]: {
+open: 9,
+close: 17,
+}, // it is the same as mon: { open: 9, close: 17,}
+
+[weekdays[1]]: {
+open: 9,
+close: 17, 
+}, // it is the same as tue: { open: 9, close: 17,}
+
+}
+
+
+````
+
+
 
 
