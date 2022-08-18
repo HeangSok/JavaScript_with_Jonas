@@ -211,3 +211,147 @@ console.log(jonhCopy); // outcome: { firstName: 'John', lastName: 'Shelby', age:
 // note: this method works only in the first level of copy; this mean that if we have an object inside an object, it works only in the first level object (parent), and the object inside still reference to the value. In this case, we need to use some package libraries to achieve it.
 ````
 
+**Destructure an Array and How to Set a Default Values**
+
+````JavaScript
+
+conts [x=1, y=1, z=1] = [7, 8, 9];
+console.log(x, y, z) // it will print 7 8 9 on the console 
+
+conts [x=1, y=1, z=1] = [7, 8];
+console.log(x, y, z) // it will print 7 8 1 on the console 
+
+conts [x=1, y=1, z=1] = [7];
+console.log(x, y, z) // it will print 7 1 1 on the console 
+
+````
+**Destructure an Object**
+````JavaScript
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavati 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // open 24 hours
+      close: 24,
+    },
+  },
+
+  order: function (startIndex, mainIndex) {
+    return [this.starterMenu[startIndex], this.mainMenu[mainIndex]];
+  },
+};
+
+// to destructure an object, the new variables name must be the same as the object's properties name; and it's enclosed in {}
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+
+// if you want a to destructure an object with new variables that are different from the object's properties
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+
+console.log(restaurantName, hours, tags);
+
+// set defaul value
+const { menu = [7, 8], starterMenu: starters = [8, 9] } = restaurant;
+console.log(menu, starters);
+
+````
+**Mutating Variables**
+
+````JavaScript
+
+let a = 111;
+let b = 999;
+const obj = { a: 23, b: 7, c: 14 };
+({ a, b } = obj); // need to wrape this line of code in parentheses (), or you will get an error
+console.log(a, b);
+````
+
+**Destructure a Nested Object**
+````JavaScript
+const {
+  fri: { open, close },
+} = restaurant.openingHours;
+console.log(open, close);
+
+// or we can set other names for open, an d close variables
+const {
+  fri: { open: o, close: c },
+} = restaurant.openingHours;
+console.log(o, c);
+
+
+````
+
+**Passing Object as Parameter**
+````JavaScript
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavati 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // open 24 hours
+      close: 24,
+    },
+  },
+
+  order: function (startIndex, mainIndex) {
+    return [this.starterMenu[startIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainIndex = 0,
+    time = '20:00',
+    address,
+  }) {
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+    );
+  },
+};
+
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del sole, 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+// result: Order received! Garlic Bread and Risotto will be delivered to Via del sole, 21 at 22:30
+
+````
+**Iterables**: arrays, strings, maps, sets, Not Objects.
+
+**Ternary Operator**:
+````JavaScript
+let hungry = true
+const eatingLunch = hungry ? "Yes" : "No"
+````
+
+
