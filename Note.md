@@ -482,9 +482,161 @@ close: 17,
 
 }
 
+````
+**Optional Chaining (?.)**
+````JavaScript
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavati 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // open 24 hours
+      close: 24,
+    },
+  },
+
+  order: function (startIndex, mainIndex) {
+    return [this.starterMenu[startIndex], this.mainMenu[mainIndex]];
+  },
+}
+
+// for objects
+console.log(restaurant.openingHours?.mon?.open) // it is the same as => if (restaurant.openingHours && restaurant.openingHours.mon) {console.log(restaurant.openingHours.mon.open)}
+
+//  for methods
+console.log(restaurant.order?.(0, 1) ?? 'Mehod does not exist')
+
+// for arrays
+const users = [{name: 'Jonh', email: 'John@Shelby.io'}]
+console.log(users[0]?.name ?? "User array empty") // with optional, if the array doesn't have values, it gives you "undefined"
 
 ````
 
+**Looping Objects: Object Keys, Values, and Entries (Entries means keys + values)**
+````JavaScript
+// to get all the keys of an object in a list
+
+const trimesterOne = {course: 'Python', teacherName: 'John'}
+const objectKeys = Object.keys(trimesterOne);
+
+console.log(objectKeys); // ["course", "teacherName"]
+
+// to get all the values from an object
+
+const values = Object.values(trimesterOne);
+console.log(values); // ["Python", "John"]
+
+// to get all keys ant values of an object at the same time
+
+const entries = Ojbect.entries(timesterOne);
+console.log(entries); // > [Array(1), Array(2)]
+
+for (const [key, value] of entries) {
+console.log(`key:${key}, value:${value}`)
+}
+
+````
+
+**Set**
+````JavaScript
+// set was introduced in ES6; a set is collection of unique value, it can never have a duplicate value
+
+const ordersSet = new Set(['Pasta', 'Pizza']) // we need an iterable inside the set function
+console.log(ordersSet.size); // it will prints 2
+console.log(ordersSet.has("Pizza")); // it will return true
+console.log(ordersSet.has("apple")); // it will return false
+ordersSet.add('Bread');
+ordersSet.delete('Pizza'); // it will delete "Pizza"
+ordersSet.delete('apple'); // since "apple" is not on the list, it will do nothing
+ordersSet.clear(); // delete all the elements in the set
+
+// let's try to delete the duplicate values of an array using "set"
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const staffUnique = new Set(staff);
+console.log(staffUnique);
+
+// let's convert the set to an array
+const arrayOfUniqueStaff = [...staffUnique]
+console.log(arrayOfUniqueStaff)
+
+````
+
+**Map** 
+````JavaScript
+// Map is a new data structure in JavaScript; we use it to map values to keys
+
+const restaurant = new Map();
+// the "set" method allows you to add a new element to the map data structure  
+restaurant.set('restaurantName', 'Italiano') // the first argument is the key; the second is the value
+
+
+restaurant.set('categories', ['apple', 'banana']).set('open', 11).set('close', 23).set(true, 'We are open :D').set(false, 'We are closed :(');
+
+console.log(restaurant.get('restaurantName')) // Italiano
+console.log(restaurant.get(true)) // We are open :D
+
+const time = 8
+console.log(restaurant.get(time > rest.get('open') && time < rest.get('close'))); // We are closed :(
+
+console.log(restaurant.has('categories')); // return a boolean
+restaurant.delete('categories'); // delete the key
+restaurant.delete('sth'); // since 'sth' is not exist, it will do nothing
+restaurant.clear(); // delete all elements
+console.log(restaurant.size); // print the size of the map
+
+````
+
+**More on Map**
+````JavaScript
+// let's create a map data structure
+
+const question = new Map([
+['Question1', 'What is the best programming language in the world?'], // the first index is key; the second is value
+[1, 'C++'],
+[2, 'JavaScript'],
+[3, 'Python'],
+['correct', 3],
+[true, 'Correct 🎉'],
+[false, 'Try again!'],
+]);
+
+console.log(question);
+
+// convert object to map
+console.log(Object.entries(openingHours));
+const openingHoursMap = new Map(Object.entries(openingHours));
+
+console.log(hoursMap);
+
+// let's work with iteration
+console.log(questrion.get('question'));
+
+for (const [key, value] of question) {
+if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+const answer = 3;
+console.log(question.get(question.get('correct') === answer));
+
+// conver a map to an array
+console.log([...question]); // make arrays in an arrays; ex: [Array(1), Array(2), Array(3)]
+console.log([...question.keys()]); // make an array of keys
+console.log([...question.values()]); // make an array of values
+
+````
+
+ 
 
 
 
