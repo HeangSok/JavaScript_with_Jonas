@@ -1,4 +1,4 @@
-alert() # function
+alert() // function
 
 console.log("hello world!") # function
 
@@ -638,6 +638,128 @@ console.log([...question.values()]); // make an array of values
 **Data Structures**
 ![image](https://user-images.githubusercontent.com/77439221/185686261-c70181c1-800e-4e3c-b76d-5160fd3083a2.png)
 
+**Working with String Part 1**
+````JavaScript
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]) // get the position of the character of index 0
+
+console.log(airline.length) // get the length of the string
+
+console.log(airline.indexOf('r')); // get the index of the first 'r'
+console.log(airline.lastIndexOf('r')); // get the index of the last 'r'
+console.log(airline.indexOf('portugal'));
+
+// slicing 
+console.log(airline.slice(4)); // it will return "Air Portugal"
+console.log(airline.slice(4, 7)); // it returns "Air"; note: it will slice from index 4 to 6, but not 7
+
+console.log(airline.slice(0, airline.indexOf(' '))); // return "TAP"
+console.log(airline.slice(-5));
+
+````
+
+**Working with String Part 2**
+````JavaScript
+const airline = 'TAP Air Portugal';
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// to capitalise the first letter
+const passenger = 'joHN';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect = passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+// Comparing emails
+const email = 'hello@world.io';
+const loginEmail = '   Hello@world.Io \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim(); 
+
+// or we can:
+
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+
+// replace parts of string
+
+const priceUS = '288,97US';
+const priceAUD = priceUS.replace('US', 'AUD').replace(',', '.'); // note: .replace() will replace only the first occurance.
+console.log(priceAUD)
+
+// replaceAll()
+conts announcement = 'All passengers come to boarding door 23. Boarding door 23!';
+console.log(announcdemnt.replaceAll('door', 'gate'));
+
+// using regex to replace all 
+console.log(announcdemnt.replace(/door/g, 'gate')); // need to write door in between of // to work with regular expression;g means global
+
+// booleans
+const plane = 'A320neo';
+console.log(plane.includes('A320')); // true
+console.log(plane.startsWith('Air')); // false
+console.log(plane.endsWith('sth')); // false
+
+// split
+
+console.log('a+very+nice+day'.split('+')); // will return ['a', 'very', 'nice', 'day']
+console.log('john shelby'.split(' ')); // will return ['john', 'shelby']
+
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+
+// join
+const newName = ['Mr.', firstName, lastName.toUppercase()].join(' ');
+console.log(newName); // returns: Mr. Jonas SCHMEDTMANN
+
+// to capitalise each word
+
+const capitalizedName = function(name) {
+consts names = name.split(' ');
+const namesCapitalized = [];
+
+for (const n of names) {
+namesCapitalized.push(n[0].toUpperCase() + n.slice(1));
+// or we can:
+// namesCapitalized.push(n.replace(n[0], n[0].toUpperCase());
+}
+console.log(nameCapitalizdd.join(' '));
+};
+
+capitalizedName('jonh smith'); // returns: John Smith
+capitalizedName('jonas schmedtmann'); // returns: Jonas Schemdtmann
+
+// padding string
+
+const message = 'Go to gate 23!'
+console.log(message.padStart(20, '+')); // returns: ++++++Go to gate 23!; the first argument means we want the whole length to be 20 characters; the second means add the + charactor to the start of the message
+
+console.log(message.padStart(20, '+').padEnd(30,'+')); // returns: ++++++Go to gate 23!++++++++++; the total lenght is 30 characters.
+
+// real case example:  we can use padding to hide part of your credit card number
+const maskCreditcard = function (number) {
+const str = String(number);
+const lastFourDigits = str.slice(-4);
+return lastFourDigits.padStart(str.length, '*');
+}
+
+console.log(maskCreditcard(421343243213441)) // returns: ***********3441
+
+// repeat
+const message = 'Bad weather...All planes Delayed...🛩';
+conole.log(message.repeat(5)); // the message will be repeated 5 times, one after another
+
+
+const planeInLine = function (n) {
+console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
+};
+
+planesInLine(3); // returns: There are 3 planes in line 🛩🛩🛩
+
+````
 
  
 
