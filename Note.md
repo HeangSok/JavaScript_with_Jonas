@@ -635,6 +635,9 @@ console.log([...question.keys()]); // make an array of keys
 console.log([...question.values()]); // make an array of values
 
 ````
+**Data Structures**
+![image](https://user-images.githubusercontent.com/77439221/185686261-c70181c1-800e-4e3c-b76d-5160fd3083a2.png)
+
 
  
 
