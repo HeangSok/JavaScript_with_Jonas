@@ -761,7 +761,267 @@ planesInLine(3); // returns: There are 3 planes in line 🛩🛩🛩
 
 ````
 
- 
+ **More about Function**
+ ````JavaScript
+ // Default Parameters
+const bookings = [];
 
+const createBooking = function (
+  flightNum,
+  numPassengers = 1,
+  price = 199 * numPassengers
+) {
+  // this is how we set default parameter in ES5
+  // numPassengers = numPassengers || 1;
+  // price = price || 199;
+
+  const booking = {
+    flightNum,
+    numPassengers,
+    price,
+  };
+  console.log(booking);
+  bookings.push(booking);
+};
+
+createBooking('LH123');
+createBooking('LH123', 2, 800);
+createBooking('LH123', 2);
+createBooking('LH123', 5);
+ 
+ ````
+ 
+ **How Passing Arguments Works: Values vs. Reference**
+ ````JavaScript
+ // be careful when you passing object as an argument becasue it is not a primitive type, yet a reference type.
+ // please: watch this lecture: https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/22648645#notes
+ 
+const flight = 'LH234';
+const jonas = {
+  name: 'Jonas Schmedtmann',
+  passport: 24739479284,
+};
+
+const checkIn = function (flightNum, passenger) {
+  flightNum = 'LH999'; // this line won't change the value of the "flight" variable outside the function
+  passenger.name = 'Mr. ' + passenger.name; // this line will change the value of "jonas" object outside the function
+
+  if (passenger.passport === 24739479284) {
+    alert('Checked in');
+  } else {
+    alert('Wrong passport!');
+  }
+};
+
+// checkIn(flight, jonas);
+// console.log(flight);
+// console.log(jonas); // return: { name: 'Mr. Jonas Schmedtmann', passport: 24739479284 }; it added "Mr." to "Jonas Schmedtmann"
+
+// Is the same as doing...
+// const flightNum = flight;
+// const passenger = jonas;
+
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 100000000000);
+};
+
+newPassport(jonas);
+checkIn(flight, jonas);
+ 
+ ````
+ **First-Class and Higher-Order Functions**
+ ![image](https://user-images.githubusercontent.com/77439221/185758907-e3f3b4a5-9fea-4093-950c-2d193dc8ce07.png)
+
+**Functions Accepting Callback Functions**
+````JavaScript
+
+// let's create a function that omits all spaces of a string, then turns it to lowercase
+const oneWord = function (str) {return str.replace(/ /g, '').toLowerCase();};
+
+// let's create a function that that convert the frist word of a to uppercase
+const upperFirstWord = function (str) {
+const [first, ...others] = str.split(' ');
+return [first.toUpperCase(), ...others].join(' ');
+};
+
+// higher-order function: a function either takes function as an argument or return a function
+const transformer = function (str, func) {
+console.log(`Original string: ${str}`);
+console.log(`Transformed string: ${func(str)}`);
+console.log(`Transformed by: ${fn.name} function`);
+};
+
+transformer('JavaScript is the best!', upperFirstWord);
+transformer('JavaScript is the best', oneWord);
+
+````
+
+**Functions returning functions**
+````JavaScript
+const greet = function (greeting) {
+return function (name) {
+console.log(`${greeting} ${name}`);
+};
+};
+// let's call the function that returns a function
+greet('Hello')('John'); // will return: Hello John
+
+// or you can store it in a variable; then call the variable
+const greeterHey = greet('Hey');
+greeterHey("John"); // returns: Hey John
+greeterHey("Smith"); // returns: Hey Smith
+
+// Challenge: rewrite the function above using arrow function syntax
+const greetArr = greeting => name => console.log(`${greeting} ${name}`);
+
+greetArr('Hi')('Jack'); // 
+
+````
+**The call and apply Methods**
+````JavaScript
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function() {}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, 'Jonas Schmedtmann');
+lufthansa.book(635, 'John Smith');
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+// let's copy the function into a variable so that we can reuse it 
+const book = lufthansa.book;
+
+// Does NOT work: because the 'this' keyword inside the function now doesn't point 'lufthansa'
+// book(23, 'Sarah Williams');
+
+
+// Call method: we use call method to manually point 'this' keyword to the object that we want to work with; in this case 'eurowings' object.
+book.call(eurowings, 23, 'Sarah Williams'); // the first argument is the object we want to work with; then we just pass the rest of the argument in its order 
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Mary Cooper');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 583, 'Mary Cooper');
+
+// Apply method: 'apply' and 'call' are similar; but 'apply' take the array as the second argument.
+const flightData = [583, 'George Cooper'];
+book.apply(swiss, flightData);
+console.log(swiss);
+
+book.call(swiss, ...flightData);
+
+// Bind method: just like the call method, bind allows us to manually set the 'this keyword' for any function call
+// the difference is that bind doesn't call the function immediately; it returns a new function where the 'this' keyword is bound
+
+const bookEW = book.bind(eurowings); // now we point the 'this' keyword in book to 'eurowings'; but we are not calling it yet. with bind, it just create a new function and save to bookEW
+
+bookEW(23, 'Steven Williams'); // now let's call the function and pass the arguments
+
+// we can also partially/fully set the predefined values of the arguments; not that it is not the same as when you set the default value which you can set to new values (or if you don't give any value it will use the defualt value). The predefined values is fixed and are always used.
+
+// let's set the predefined values
+const bookEW = book.bind(eurowings, 23); // this '23' will be always used
+
+bookEW('Steven Williams'); // we can't set a new number here to replace 23; 23 will be always used in bookEW
+
+
+// Bind method with Event Listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+};
+// lufthansa.buyPlane();
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa)); 
+  // the 'this' keyword here point to the element that the Event Listeners attached to, so we need to set it manually to the object that we want to work with
+  // we use bind method here because call method will call the function immediately which we don't want to happen here
+
+
+
+// Partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+// we point to null because the function above doesn't use 'this' keyword; we want to set the 'rate' argument to be always 0.23 that is why we use bind method. note it is not the same as setting the default value.
+const addVAT = addTax.bind(null, 0.23); 
+//the line above means: addVAT = value => value + value * 0.23;
+
+console.log(addVAT(100));  // we can't write: console.log(addVAT2(0.5, 100)); this is because the rate parameter is always 0.23 now. if you give 2 parameters here, it will take only the first one.
+console.log(addVAT(23));
+
+````
+**Immediately Invoked Function Expression (IIFE)**
+````JavaScript
+// sometimes, in JavaScript, we need a function that executed only once and never again. This function will be disappear right after it is called once
+// we usually use IIFE with Asyn and Wait
+
+(function () {console.log('This will never run again');})();
+
+(() => console.log('This will ALSO never run again');)();
+
+````
+
+**Closures**
+![image](https://user-images.githubusercontent.com/77439221/185763949-1ad9586e-a9f3-4cf1-8319-bfb95ce8d212.png)
+
+
+**Array methods**
+````JavaScript
+
+// slice: it won't mutate the original array
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+console.log(arr.slice(2)); // returns: ['c', 'd', 'e']
+console.log(arr.slice(2, 4)); // returns: ['c', 'd']
+console.log(arr.slice(2, -1)); // returns: ['c', 'd']
+
+// splice: it will mutate the original array
+
+// the code below will return: ['c', 'd']
+console.log(arr.splice(2, 2)); // the first arguement is the start index; the 2nd is the numbers of the elements that you want to take out
+
+console.log(arr) // returns: ['a', 'b', 'e']; this is because we used ".splice" to take 2 elements out of the array
+
+// reverse
+console.log(arr.revere()); // returns: ['e', 'd', 'c', 'b', 'a']
+
+// concat: not mutate the original array
+
+let arr2 = ['f', 'g'];
+const letters = arr.concat(arr2);
+console.log(letters); // returns: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+// join: join an array to a string
+console.log(letters.join(' ')); // returns: a b c d e f g
+
+
+
+````
 
 
