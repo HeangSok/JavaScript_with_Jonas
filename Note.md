@@ -1020,8 +1020,199 @@ console.log(letters); // returns: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 // join: join an array to a string
 console.log(letters.join(' ')); // returns: a b c d e f g
 
+````
+
+**'at' method**
+````JavaScript
+const arr = [1, 2, 3, 4, 5];
+console.log(arr[0]); // returns: 1
+console.log(arr.at(0)); // returns: 1
+
+// to get the last element
+console.log(arr[-1]); // returns: undefined
+console.log(arr.at(-1)); // returns: 5
+// or you can use slice to get the last element
+console.log(arr.slice(-1)); // returns: 5
+
+````
+**forEach**
+````JavaScript
+// working with array
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// note: we use a callback function inside forEach method; each element of the array will pass to the function at each iteration
+// the first argument is the element of the array; second is the index number; third is the entire array.
+movements.forEach(function (movement, indexNumber, entireArray) { 
+if (movement > 0) {
+console.log(`Movement ${indexNumber + 1}: You deposited ${movement}`);
+} else {
+console.log(`Movement ${indexNumber + 1}: You withdrew ${movement}`);
+}
+
+}); 
+
+// working with map
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value} ; ${map}`);
+});
+// iteration1: USD: United States dollar ; [object Map]
+// iteration2: EUR: Euro ; [object Map]
+// iteration3: GBP: Pound sterling ; [object Map]
+
+
+// working with set
+
+const currenciesUnique = new Set(['USD', 'GBP', 'EUR']);
+
+// Note: set doesn't have index number that is why we use '_' for this argument; by convention, '_' is used for the variable/parameter that we don't need 
+currenciesUnique.forEach(function(value, _, set) {
+console.log(`${value}; ${set}`)
+});
+
+// iteration1: USD; [object Set]
+// iteration2: GBP; [object Set]
+// iteration3: EUR; [object Set]
 
 
 ````
+
+![image](https://user-images.githubusercontent.com/77439221/187010424-92552ae4-9859-4ae7-b53d-62255ac7e7e9.png)
+
+**The map method**
+````JavaScript
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1; // coversion rate
+
+const newArray = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+console.log(newArray);
+````
+
+**The filter method**
+````JavaScript
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(deposits); // [200, 450, 3000, 70, 1300]
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals); // [-400, -650, -130]
+````
+
+**The reduce method**
+````JavaScript
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const balance = movements.reduce(function (
+  accumulator,
+  currentElement,
+  index,
+  entireArr
+) {
+  return accumulator + currentElement;
+},
+0); // the first parameter for the '.reduce' method is a callback function; the second is the 'intial value' of the accumulator
+
+console.log(balance); // 3840
+
+// to get a maximum value
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const max = movements.reduce((accumulator, currentElement) => {if (accumulator > currentElement) return accumulator; else return currentElement;}, movements[0]);
+
+console.log(max); // 3000
+
+````
+**The find method**
+````JavaScript
+// the difference between find and filter is: - filter returns a new array that meet the condition while find returns only the first element that meet the condition
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal); // -400
+
+````
+
+**The findIndex method**
+````JavaScript
+// findIndex returns the index of the first found element
+// also check .indexOf()
+
+````
+
+**The includes, some, every methods**
+````JavaScript
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// includes uses exact value 
+console.log(movements.includes(-130)) // true
+
+// some uses callback function and condition
+console.log(movements.some(mov => mov > 1500)) // true
+console.log(movements.some(mov => mov > 5000)) // false
+
+// every method returns true only if all the elements in the array satifies the condition that we pass in
+console.log(moements.every(mov => mov > 0)); // false
+
+````
+**The flat method**
+````JavaScript
+
+// level one of nested array
+const arr = [[1, 2, 3], [4, 5 ,6], 7, 8];
+console.log(arr.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// levle two of nested array
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// also check the flatMap method
+
+````
+**The sort method**
+````JavaScript
+// String
+const strArr1 = ['a', 'c', 'z', 'f'];
+// sort ascending order with string
+console.log(strArr1.sort());
+// sort descending order with string
+console.log(strArr1.sort((a, b) => (a > b ? -1 : 1)));
+// sort descending order with string
+console.log(strArr1.sort().reverse());
+
+// Number
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements.sort()); // will give you a wrong answer
+
+// return something < 0 means (keep order of the element inside the array when sorting)
+// return something > 0 means (switch order of the element inside the array when sorting)
+
+// Ascending
+// movements.sort((a, b) => {if (a > b) return 1; if (a < b) return -1;});
+// console.log(movements);
+
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// Descending
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
+
+````
+
 
 
