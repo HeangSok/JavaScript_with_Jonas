@@ -1214,5 +1214,49 @@ console.log(movements);
 
 ````
 
+**More ways of creating and filling arrays**
+````JavaScript
+// using Array() constructor
+console.log(new Array(1, 2, 3, 4, 5, 6, 7)) // [1, 2, 3, 4, 5, 6, 7]
+
+// note: if you you give only one element to this constructor, it will not create an array of that one element
+console.log(new Array(7)) // this line create an array that has a lenght of 7 and empty value like this: [empty x 7]
+// basically you can't do anything with this type of empty array except using filling() method to replace the empty values with new elements
+
+// filling method
+const x = new Array(7);
+x.fill(1)
+console.log(x) // [1, 1, 1, 1, 1, 1, 1]
+
+x.fill(1, 3, 5) // the first argument mean the element that you gonna fill; second, it is where you start to fill; third, it is where you stop filling
+console.log(x) // [empty x 3, 1, 1, empty x 2]
+
+const arr = [1, 2, 3, 4, 5, 6, 7];
+arr.fill(23, 2, 6)
+console.log(arr); [1, 2, 23 ,23, 23, 23, 7];
+
+// Array.from()
+const y = Array.from({length: 7}, () => 1); // first argument tells the lenght of the array; second is a callback function that set the value that are going inside the array
+
+console.log(y); // [1, 1, 1, 1, 1, 1, 1]
+
+const z = Array.from({length: 7}, {_, i} => i + 1);
+console.log(z); // [1, 2, 3, 4, 5, 6, 7]
+
+// Array.from() and querySelectorAll()
+
+lableBalance.addEventListener('click', function() {
+const movementsUI = Array.from(
+document.querySelectorAll('.movements__value'), element => element.textContent
+);
+
+console.log(movementsUI)
+});
+
+````
+**Which array method to use?**
+![image](https://user-images.githubusercontent.com/77439221/187060961-93f3dce4-a293-4677-99e7-5f0c4af5e472.png)
+
+
 
 
