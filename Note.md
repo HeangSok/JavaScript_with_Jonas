@@ -1258,5 +1258,53 @@ console.log(movementsUI)
 ![image](https://user-images.githubusercontent.com/77439221/187060961-93f3dce4-a293-4677-99e7-5f0c4af5e472.png)
 
 
+**The remainder operator**
+````JavaScript
+// it is call modulus (%) in python
+console.log(5 % 2); // 1
+console.log(8 % 3); // 2
 
+````
 
+**Numeric Operator**
+````JavaScript
+// numberic separator is an underscore in JavaScript
+const diameter = 287_460_000_000; 
+// only use it with number; not number like string; ex: '123_456'
+const x = '123_456';
+console.log(Number(x)); // NaN
+````
+
+**BigInt**
+````JavaScript
+// Basically, JavaScript is using 64bits to store numbers; so you cannot store more than this; but...
+// recently, in ES20, they introduce a new data type called "BigInt"to store bigger number 
+
+// to make a number become BigInt, we place 'n' at the end of the number of using 'BingInt()' constructor
+
+console.log(34132423n);
+console.log(BigInt(32432314));
+
+// note: you cannot use arithmetic operators with BigInt and 64 bits number 
+const huge = 341234123n;
+const num = 23;
+
+console.log(huge * num); // you will get error
+
+// Exeptions
+
+console.log(20n > 15); //true
+console.log(15n > 20); // false
+console.log(typeof 20n); // BigInt
+console.log(20n == '20'); // true
+console.log(20n === 20); // false
+
+console.log(20n + 'is a BigInt!!!'); // '20 is a BigInt!!!'
+
+// Division
+console.log(10n / 3n); // 3n ; it cuts all the decimal and returns the closest n number
+console.log(11n / 3n); // 3n
+console.log(12n / 3n); // 4n 
+
+console.log(11 / 3) // 3.3333333333333335
+````
