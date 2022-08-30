@@ -1308,3 +1308,37 @@ console.log(12n / 3n); // 4n
 
 console.log(11 / 3) // 3.3333333333333335
 ````
+**Date**
+````JavaScript
+// create a date
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Aug 02 2020 18:05:41')); //Sun Aug 02 2020 18:05:41 GMT+1000 (Australian Eastern Standard Time)
+console.log(new Date('December 24, 2015'));  //Thu Dec 24 2015 00:00:00 GMT+1000 (Australian Eastern Standard Time)
+console.log(new Date(2037, 10, 19, 15, 23, 5)); // format: yyyy, mm, dd, h, mn, s; note: JavaScript count the month from 0 to 11, so 10 here means November
+
+//note: timestamp is in millisecond; timestamp's millisecond starts counting from Jan 01 1970 10:00:00
+
+console.log(new Date(0)); // show the 'time system' that we started counting from
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // show 3 days after the first 'time system' count
+// 3 * 24 * 60 * 60 * 1000 equals 259200000 timestamp; let's use this timestamp to show the date 
+console.log(new Date(259200000)) // Sun Jan 04 1970 10:00:00 GMT+1000 (Australian Eastern Standard Time)
+
+// more examples
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(futue.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime()); // get timestamp
+
+````
+
+
+
