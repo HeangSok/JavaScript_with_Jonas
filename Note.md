@@ -1340,5 +1340,10 @@ console.log(future.getTime()); // get timestamp
 
 ````
 
+````JavaScript
+
+
+````
+
 
 
