@@ -1340,8 +1340,24 @@ console.log(future.getTime()); // get timestamp
 
 ````
 
-````JavaScript
 
+**setTimeout method**
+````JavaScript
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+(ingredient1, ingredient2) => console.log(`Here is your pizza with ${ingredient1} and ${ingredient2}🍕`), 3000, ...ingredients
+); // the 3rd and 4th arguments will be the arguments for the callback function inside
+console.log('waiting...');
+
+// to interrupt the setTimeout, we use clearTimeout
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+// setInterval: repeat an action again and again between an interval
+setInterval(function() {
+const now = new Date();
+console.log(now);
+}, 1000);
+// also read about: clearInterval()
 
 ````
 
