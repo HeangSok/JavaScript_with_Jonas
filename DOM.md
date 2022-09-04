@@ -13,6 +13,9 @@ document.querySelector(".className").addEventListener("clikc", function () {// d
 // note: for the attribute that has two words, we can't use kebab case, we use camel case instead
 document.querySelector('body').style.backgroundColor = '#60b347';
 
+// to print your current viewport size:
+console.log('height/width viewport:', document.documentElement.clientHeight, document.documentElement.clientWidth);
+
 **What is the DOM**
 ![image](https://user-images.githubusercontent.com/77439221/188302187-c56b6f70-457a-4cba-bbb1-197db2725a16.png)
 
@@ -88,10 +91,29 @@ logo.classList.contains('class2');
 // don't use
 logo.className = 'sth'; // it will overide all the classes with 'sth'
 
+````
 
+**Smooth Scrolling**
+````JavaScript
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
+btnScrollTo.addEventListener('click', function (e) {
+  e.preventDefault();
 
+  const s1coords = section1.getBoundingClientRect();
+  // old way; all work with old broswers
+  // window.pageXOffset gives a value  of the x coordinate in pixel from the very top of the website to the very top of the viewport
 
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // new way; doesn't work with old browsers
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 
 ````
 
