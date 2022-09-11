@@ -117,5 +117,28 @@ btnScrollTo.addEventListener('click', function (e) {
 
 ````
 
+**Type of events and event handlers**
+````JavaScript
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+alert('something!')
+// stope the event listener
+h1.removeEventListener('mouseenter', alertH1);
+}
+
+h1.addEventListenter('mouseenter', alerH1);
+
+// or you can use old way
+h1.onmouseenter = alerH1
+
+````
+![image](https://user-images.githubusercontent.com/77439221/188308637-d3806ccf-481a-4130-b03f-fc64997a702c.png)
+
+
+![image](https://user-images.githubusercontent.com/77439221/189520475-8283bf36-03ba-48f0-8ad4-41b7112acdb0.png)
+
+![image](https://user-images.githubusercontent.com/77439221/189520597-20a81a46-103b-4e7e-bc6b-146249c25c86.png)
+
 
 
