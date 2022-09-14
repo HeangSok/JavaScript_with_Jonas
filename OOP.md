@@ -10,3 +10,62 @@
 ![image](https://user-images.githubusercontent.com/77439221/189525367-616d7c25-b145-4abe-80c9-47db7f7bb98a.png)
 ![image](https://user-images.githubusercontent.com/77439221/189525471-219a7709-40d1-4577-87c1-754bdfd2d698.png)
 
+
+**class expression vs class declaration**
+````JavaScript
+
+// 1. Classes are NOT hoisted
+// 2. Classes are first-class citizes
+// 3. Classes are executed in strict mode (all the code in the class will be executed in strict mode)
+
+// class expression
+const PersonCl = class {//some codes}
+
+// class declaration
+class PersonCl {
+   constructor(firstName, birthYear) {
+   this.firsName = firstName;
+   this.birthYear = birthYear;
+   }
+   
+   // Methodes will be added to .prototype property
+   calcAge() {
+   console.log(2037 - this.birithYear);
+   }
+   
+   greet() {
+   console.log(`Hey ${this.first.Name}`);
+   }
+}
+
+const jessica = new PersonCl('Jessica', 1996);
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__ === PersonCl.prototype); // return: true.
+
+````
+**getter and setter**
+````JavaScript
+// getter and setter can exist both object and class
+
+// getter and setter in an object
+const account = {
+owner: 'John',
+movements:[200, 530, 120, 300],
+
+get latest() { // note: latest is a property now, not a method
+return this.movements.slice(-1).pop();
+},
+
+set latest(move) { // note: latest is a property now, not a method
+this.movennts.push(move);
+}, 
+};
+
+console.log(account.latest);
+account.latest = 50; // note: sice latest is a property, we set a new value to it like this, not: account.latest(50)
+console.log(account.movements);
+
+
+````
