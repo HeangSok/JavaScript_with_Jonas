@@ -240,6 +240,11 @@ Account.helper();
 // console.log(acc1.#approveLoan(100));
 
 ````
+// Chaining
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovements());
+
+![image](https://user-images.githubusercontent.com/77439221/190532614-2042dafc-95ee-47e9-81a9-64ea706d4a3c.png)
 
 
 
