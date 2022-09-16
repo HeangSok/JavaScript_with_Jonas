@@ -246,6 +246,8 @@ console.log(acc1.getMovements());
 
 ![image](https://user-images.githubusercontent.com/77439221/190532614-2042dafc-95ee-47e9-81a9-64ea706d4a3c.png)
 
+**One more example**
+![image](https://user-images.githubusercontent.com/77439221/190537818-f19cc654-e050-4e41-a197-4b1ee836d80e.png)
 
 
 
