@@ -16,7 +16,6 @@
 👉 **Plugin**: 
 - *Prettier (also set default formatter to Prettier; also tick **Format On Save**)*
 - *Live Server; if you want to run **Live Server** with **Node.js**, also install:sudo npm install live-server -g; it will allow you to run **Live Server** in the terminal by running this command **live-server**
-- 
 - *ToDo Highlight*
 ```
 // my setting for ToDo Highlight plugin
