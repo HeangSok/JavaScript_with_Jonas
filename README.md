@@ -54,4 +54,5 @@
 
 - Netlify
 - Github Page
+- Surge
 
