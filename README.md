@@ -49,3 +49,9 @@
 
 - codewars
 - hackerrank
+
+# Deployment
+
+- Netlify
+- Github Page
+
