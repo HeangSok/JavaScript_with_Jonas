@@ -29,7 +29,7 @@
 
  const getCountryData = function (country) {
  // note: the fetch api always return a promise; after a promise we can use 'then' for next step; 
- // note: 'then' can accept two fall back function. The first fall back function will handle when the promise is successful fullfilled. The second fall back function will handle all the errors, for example, when we can't fetch the data from the api.
+ // note: 'then' can accept two fall back function. The first fall back function will handle when the promise is successful fulfilled. The second fall back function will handle all the errors, for example, when we can't fetch the data from the api.
    fetch(`https://restcountries.eu/rest/v2/name/${country}`)
      .then(function (response) {
        console.log(response);
@@ -123,6 +123,218 @@ getCountryData('australia');
 ![image](https://user-images.githubusercontent.com/77439221/190579905-e9eecde7-54ce-4dd2-abbe-c8d9c5461473.png)
 
 
+**Building a simple Promise**
+````JavaSript
+// note: the Promise constructor's call back function has two argument one is resolve (means that the promise is fulfilled); one is reject (means that the promise is rejected; use it to tell what error it is in catch)
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lotter draw is happening 🔮');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('You WIN 💰');
+    } else {
+      reject(new Error('You lost your money 💩'));
+    }
+  }, 2000);
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+
+// Promisifying setTimeout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(1)
+  .then(() => {
+    console.log('1 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('3 second passed');
+    return wait(1);
+  })
+  .then(() => console.log('4 second passed'));
+
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+````
+
+**Asyn and Await**
+
+````JavaScript
+// Asyn and await is a syntactic sugar for consuming promise. 
+const whereAmI = async function () {
+  try {
+    // Geolocation
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!resGeo.ok) throw new Error('Problem getting location data');
+
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+    // Country data
+    const res = await fetch(
+      `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+    );
+    
+    if (!res.ok) throw new Error('Problem getting country');
+
+    const data = await res.json();
+    console.log(data);
+    renderCountry(data[0]);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`💥 ${err.message}`);
+  }
+};
+whereAmI();
+
+````
+**handle with returning values from asyn functions**
+
+````JavaScript
+// note: an asyn function always return a promise 
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function () {
+  try {
+    // Geolocation
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!resGeo.ok) throw new Error('Problem getting location data');
+    const dataGeo = await resGeo.json();
+
+    // Country data
+    const res = await fetch(
+      `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+    );
+    if (!resGeo.ok) throw new Error('Problem getting country');
+    const data = await res.json();
+    renderCountry(data[0]);
+
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`;
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`💥 ${err.message}`);
+
+    // Reject promise returned from async function
+    throw err;
+  }
+};
+
+
+console.log('1: Will get location');
+
+// method 1: using .then to handle the promise that return from the asyn function
+ whereAmI()
+   .then(city => console.log(`2: ${city}`))
+   .catch(err => console.error(`2: ${err.message} 💥`))
+   .finally(() => console.log('3: Finished getting location'));
+   
+// method 2: using IIFE (Immediately Invoked Function Expression)
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.error(`2: ${err.message} 💥`);
+  }
+  console.log('3: Finished getting location');
+})();
+
+````
+
+**Running promise in parallel**
+```JavaScript
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    // const [data1] = await getJSON(
+    //   `https://restcountries.eu/rest/v2/name/${c1}`
+    // );
+    // const [data2] = await getJSON(
+    //   `https://restcountries.eu/rest/v2/name/${c2}`
+    // );
+    // const [data3] = await getJSON(
+    //   `https://restcountries.eu/rest/v2/name/${c3}`
+    // );
+    // console.log([data1.capital, data2.capital, data3.capital]);
+    
+    // note: use Promise.all([array of functions or API]) to run all the promises in parallel; it returns an array of promises; if there is a reject promise, it will crush and we need to do the erros handling
+    const data = await Promise.all([ 
+      getJSON(`https://restcountries.eu/rest/v2/name/${c1}`),
+      getJSON(`https://restcountries.eu/rest/v2/name/${c2}`),
+      getJSON(`https://restcountries.eu/rest/v2/name/${c3}`),
+    ]);
+    console.log(data.map(d => d[0].capital));
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'canada', 'tanzania');
+```
+**Other Promise method: race, allSettle and any**
+````JavaScript
+// Promise.race: it returns only the promise that is fulfilled first (completed first), not an array of promises like Promise.all()
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://restcountries.eu/rest/v2/name/italy`),
+    getJSON(`https://restcountries.eu/rest/v2/name/egypt`),
+    getJSON(`https://restcountries.eu/rest/v2/name/mexico`),
+  ]);
+  console.log(res[0]);
+})();
+
+
+// Promise.race is very useful when it comes to stop a promise that might take too long to fulfill
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('Request took too long!'));
+    }, sec * 1000);
+  });
+};
+
+// if the promise is taking more than 5 seconds to fulfill, reject it with an erro: Request took too long!
+Promise.race([
+  getJSON(`https://restcountries.eu/rest/v2/name/tanzania`),
+  timeout(5),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
+// Promise.allSettled: returns an array of promises even one of the promise is rejected (it won't crush like Promise.all())
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+]).then(res => console.log(res));
+
+// Promise.any [ES2021]: it similar to Promise.race(), but it ignores the rejected promise
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+````
 
 
 
