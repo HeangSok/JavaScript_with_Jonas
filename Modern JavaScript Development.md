@@ -83,3 +83,13 @@ import * as ShoppingCart from './shoppingCart.js';
 
 
 ![image](https://user-images.githubusercontent.com/77439221/190658543-4aec5640-3c7c-4a53-b39c-55862561eed4.png)
+
+
+![image](https://user-images.githubusercontent.com/77439221/190669130-b7950b86-19fe-483c-8536-818be160ef8d.png)
+![image](https://user-images.githubusercontent.com/77439221/190669625-8b82ec0d-d263-4e5a-805f-0ed7c05852cd.png)
+
+
+![image](https://user-images.githubusercontent.com/77439221/190669741-d4ec5a04-dc73-4692-80c7-2fad07217c4f.png)
+![image](https://user-images.githubusercontent.com/77439221/190669996-1971ca8c-80a6-4b5e-b29a-fb65a4744758.png)
+
+
